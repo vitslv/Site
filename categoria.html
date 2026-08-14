@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria | Square3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html">← Voltar</a>
+        <h2>Square3D</h2>
+    </header>
+    <main>
+        <section class="produto-detalhe">
+            <h1 id="categoria-titulo">Categoria</h1>
+            <p class="preco" id="categoria-preco">R$0,00</p>
+            <p id="categoria-descricao"></p>
+
+            <div class="produto-visual">
+                <div class="produto-imagem-wrap">
+                    <img id="selected-image" src="img/avulso.jpeg" alt="Produto selecionado">
+                </div>
+
+                <div class="produto-info-panel">
+                    <h2 id="selected-title">Produto</h2>
+                    <p class="selected-price" id="selected-price">R$0,00</p>
+                    <p class="selected-note">Frete calculado antes da finalização.</p>
+
+                    <div class="quantidade-box">
+                        <span class="quantidade-label">Quantidade</span>
+                        <div class="quantidade-control">
+                            <button type="button" class="qty-btn" data-action="minus">−</button>
+                            <span id="qty-value">1</span>
+                            <button type="button" class="qty-btn" data-action="plus">+</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-principal">Compre já</button>
+                </div>
+            </div>
+
+            <div id="produtos-grid" class="produtos-grid" aria-live="polite"></div>
+
+            <ul id="categoria-lista"></ul>
+        </section>
+
+        <div id="checkout-modal" class="checkout-overlay hidden" aria-hidden="true">
+            <div class="checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+                <button type="button" class="checkout-close" aria-label="Fechar checkout">×</button>
+
+                <div class="checkout-grid">
+                    <div class="checkout-form-side">
+                        <h3>Contato</h3>
+
+                        <div class="checkout-row">
+                            <label for="checkout-email">E-mail</label>
+                            <input id="checkout-email" type="email" placeholder="E-mail" />
+                        </div>
+
+                        <h3>Entrega</h3>
+
+                        <div class="checkout-row">
+                            <label for="checkout-pais">País/Região</label>
+                            <select id="checkout-pais">
+                                <option>Brasil</option>
+                            </select>
+                        </div>
+
+                        <div class="checkout-two-col">
+                            <div class="checkout-row">
+                                <label for="checkout-nome">Nome</label>
+                                <input id="checkout-nome" type="text" placeholder="Nome" />
+                            </div>
+                            <div class="checkout-row">
+                                <label for="checkout-sobrenome">Sobrenome</label>
+                                <input id="checkout-sobrenome" type="text" placeholder="Sobrenome" />
+                            </div>
+                        </div>
+
+                        <div class="checkout-row">
+                            <label for="checkout-cep">CEP</label>
+                            <input id="checkout-cep" type="text" placeholder="CEP" />
+                        </div>
+
+                        <div class="checkout-two-col">
+                            <div class="checkout-row">
+                                <label for="checkout-endereco">Endereço</label>
+                                <input id="checkout-endereco" type="text" placeholder="Endereço" />
+                            </div>
+                            <div class="checkout-row">
+                                <label for="checkout-numero">Número</label>
+                                <input id="checkout-numero" type="text" placeholder="Número" />
+                            </div>
+                        </div>
+
+                        <div class="checkout-two-col">
+                            <div class="checkout-row">
+                                <label for="checkout-cidade">Cidade</label>
+                                <input id="checkout-cidade" type="text" placeholder="Cidade" />
+                            </div>
+                            <div class="checkout-row">
+                                <label for="checkout-estado">Estado</label>
+                                <select id="checkout-estado">
+                                    <option>Paraná</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="checkout-row">
+                            <label for="checkout-telefone">Telefone</label>
+                            <input id="checkout-telefone" type="tel" placeholder="Telefone" />
+                        </div>
+
+                        <label class="checkout-checkbox">
+                            <input type="checkbox" checked />
+                            <span>Salvar minhas informações para a próxima vez</span>
+                        </label>
+
+                        <h3>Forma de frete</h3>
+                        <div class="checkout-frete-box">
+                            Insira o endereço de entrega para ver as formas de frete disponíveis.
+                        </div>
+
+                        <div class="checkout-pagamento">
+                            <h3>Pagamento</h3>
+                            <p>Todas as transações são seguras e criptografadas.</p>
+
+                            <div class="pagamento-option" data-method="credit" tabindex="0" role="button" aria-pressed="false">
+                                <div class="pagamento-label">
+                                    <span class="radio-dot"></span>
+                                    <span>Cartão de crédito</span>
+                                </div>
+                                <div class="pagamento-bandeiras" aria-label="Cartões aceitos">
+                                    <span class="bandeira visa">VISA</span>
+                                    <span class="bandeira master">MC</span>
+                                    <span class="bandeira elo">Elo</span>
+                                    <span class="mais-cartoes">+</span>
+                                </div>
+                            </div>
+
+                            <div class="checkout-row pagamento-field">
+                                <label for="checkout-cartao">Número do cartão</label>
+                                <input id="checkout-cartao" type="text" placeholder="Número do cartão" />
+                            </div>
+
+                            <div class="checkout-two-col">
+                                <div class="checkout-row pagamento-field">
+                                    <label for="checkout-vencimento">Data de vencimento (MM/AA)</label>
+                                    <input id="checkout-vencimento" type="text" placeholder="MM/AA" />
+                                </div>
+                                <div class="checkout-row pagamento-field">
+                                    <label for="checkout-cvv">Código de segurança</label>
+                                    <input id="checkout-cvv" type="text" placeholder="Código de segurança" />
+                                </div>
+                            </div>
+
+                            <div class="checkout-row pagamento-field">
+                                <label for="checkout-nome-cartao">Nome no cartão</label>
+                                <input id="checkout-nome-cartao" type="text" placeholder="Nome no cartão" />
+                            </div>
+
+                            <div class="checkout-row pagamento-field">
+                                <label for="checkout-parcelamento">Parcelamento</label>
+                                <select id="checkout-parcelamento">
+                                    <option>À vista (R$ 0,00)</option>
+                                </select>
+                            </div>
+
+                            <label class="checkout-checkbox pagamento-checkbox">
+                                <input type="checkbox" checked />
+                                <span>Usar o endereço de entrega como endereço de faturamento</span>
+                            </label>
+
+                            <div class="metodo-pagamento">
+                                <label class="metodo-item" data-method="boleto">
+                                    <input type="radio" name="pagamento" />
+                                    <span class="metodo-text">Boleto</span>
+                                    <span class="metodo-logo boleto">Boleto</span>
+                                </label>
+
+                                <label class="metodo-item" data-method="pix">
+                                    <input type="radio" name="pagamento" />
+                                    <span class="metodo-text">PIX</span>
+                                    <span class="metodo-logo pix">pix</span>
+                                </label>
+                            </div>
+
+                            <button type="button" class="btn-pagar">Pagar agora</button>
+                        </div>
+                    </div>
+
+                    <aside class="checkout-summary">
+                        <div class="summary-top">
+                            <div class="summary-badge">1</div>
+                            <div class="summary-product">
+                                <img id="checkout-image" src="img/avulso.jpeg" alt="Produto" />
+                                <div class="summary-product-text">
+                                    <h4 id="checkout-title">Peça Unitária</h4>
+                                    <p id="checkout-price">R$0,00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="coupon-row">
+                            <input type="text" placeholder="Código de desconto" />
+                            <button type="button">Aplicar</button>
+                        </div>
+
+                        <div class="totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <strong id="checkout-subtotal">R$0,00</strong>
+                            </div>
+                            <div class="total-row">
+                                <span>Frete</span>
+                                <strong>Inserir endereço de entrega</strong>
+                            </div>
+                            <div class="total-row total-final">
+                                <span>Total</span>
+                                <strong>BRL <span id="checkout-total">R$0,00</span></strong>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style>/* ===== base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #090b10;
+    --card: #14181f;
+    --text: #e8eef5;
+    --muted: #9aa4b2;
+    --accent: #0585fd;
+    --accent-2: #00b8d4;
+    --border: rgba(255, 255, 255, 0.08);
+    --radius: 14px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #090b10;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.16) 0 1.2px, transparent 2.4px),
+        radial-gradient(circle at 80% 12%, rgba(255,255,255,0.11) 0 1.4px, transparent 2.8px),
+        radial-gradient(circle at 45% 72%, rgba(255,255,255,0.14) 0 1.1px, transparent 2.2px),
+        radial-gradient(circle at 62% 38%, rgba(255,255,255,0.09) 0 1.6px, transparent 3.2px),
+        radial-gradient(circle at 30% 60%, rgba(255,255,255,0.05) 0 2px, transparent 4px),
+        linear-gradient(135deg, rgba(10, 14, 22, 0.92), rgba(7, 11, 18, 0.98));
+    background-blend-mode: screen, screen, screen, screen, screen, multiply;
+    background-size: 220px 220px, 260px 260px, 300px 300px, 340px 340px, 380px 380px, auto;
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ===== header ===== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5%;
+    border-bottom: 1px solid var(--border);
+    background: rgba(11, 13, 16, 0.92);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.25s;
+}
+
+header a:hover {
+    color: var(--accent);
+}
+
+header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.2rem 4rem;
+}
+
+.produto-detalhe {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.produto-detalhe h1 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.preco {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.produto-detalhe > p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    white-space: pre-line;
+    max-width: 100%;
+}
+
+.produto-visual {
+    display: grid;
+    grid-template-columns: 1.5fr 0.9fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin: 2.5rem 0 3rem;
+}
+
+.produto-imagem-wrap {
+    background: #f4f4f4;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.produto-imagem-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.produto-info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+.produto-info-panel h2 {
+    font-size: clamp(2.3rem, 2.7vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    color: #fff;
+}
+
+.selected-price {
+    font-size: clamp(1.7rem, 2vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    margin-top: 0.5rem;
+}
+
+.selected-note {
+    color: #d2d7df;
+    font-size: 1.05rem;
+    margin: 0.2rem 0 0.3rem;
+}
+
+.quantidade-box {
+    width: 100%;
+    max-width: 240px;
+    margin-top: 0.5rem;
+}
+
+.quantidade-label {
+    display: block;
+    color: var(--text);
+    font-size: 1.05rem;
+    margin-bottom: 0.7rem;
+}
+
+.quantidade-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    height: 56px;
+    padding: 0 1rem;
+}
+
+.qty-btn {
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+
+#qty-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    min-width: 40px;
+    text-align: center;
+}
+
+.btn-secundario,
+.btn-principal {
+    width: 100%;
+    min-height: 64px;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-secundario {
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: transparent;
+    color: var(--text);
+    margin-top: 0.8rem;
+}
+
+.btn-principal {
+    border: none;
+    background: linear-gradient(135deg, var(--accent), #1d9bf0);
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(5, 133, 253, 0.28);
+}
+
+.btn-secundario:hover,
+.btn-principal:hover {
+    transform: translateY(-2px);
+}
+
+.checkout-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 12, 16, 0.72);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 200;
+    overflow-y: auto;
+}
+
+.checkout-overlay.hidden {
+    display: none;
+}
+
+.checkout-panel {
+    position: relative;
+    width: min(1200px, 96vw);
+    max-height: calc(100vh - 3rem);
+    background: #f2f2f2;
+    color: #121212;
+    border-radius: 18px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+    padding: 2rem 2rem 1rem;
+    overflow-y: auto;
+}
+
+.checkout-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(18, 18, 18, 0.08);
+    color: #121212;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.7fr 0.95fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.checkout-form-side {
+    padding: 1rem 0.5rem 0.5rem;
+}
+
+.checkout-form-side h3,
+.checkout-summary h3 {
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    font-weight: 800;
+    color: #121212;
+    margin: 1.2rem 0 1rem;
+}
+
+.checkout-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.checkout-row label {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #1c1c1c;
+}
+
+.checkout-row input,
+.checkout-row select {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    background: #eff0f1;
+    color: #111;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.checkout-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.checkout-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.5rem 0 2rem;
+    color: #1e1e1e;
+    font-size: 1rem;
+}
+
+.checkout-checkbox input {
+    width: 18px;
+    height: 18px;
+}
+
+.checkout-frete-box {
+    min-height: 64px;
+    border-radius: 12px;
+    border: 1px solid #d4d4d4;
+    background: #ebebec;
+    color: #4a4a4a;
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    font-size: 0.98rem;
+}
+
+.checkout-summary {
+    background: rgba(18, 18, 18, 0.04);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 1.2rem 1.2rem 0.8rem 1.3rem;
+    min-height: 100%;
+}
+
+.summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.summary-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.summary-product {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.summary-product img {
+    width: 74px;
+    height: 74px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #ddd;
+}
+
+.summary-product h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+    color: #171717;
+}
+
+.summary-product p {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.coupon-row {
+    display: grid;
+    grid-template-columns: 1fr 104px;
+    gap: 0.7rem;
+    margin: 1.4rem 0 1.8rem;
+}
+
+.coupon-row input {
+    height: 46px;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    background: #f5f5f5;
+    color: #111;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+}
+
+.coupon-row button {
+    height: 46px;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    background: transparent;
+    color: #111;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+.total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #222;
+    font-size: 1.02rem;
+}
+
+.total-row strong {
+    font-weight: 700;
+}
+
+.total-final {
+    font-size: 1.15rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.total-final strong {
+    font-size: 1.25rem;
+}
+
+.checkout-pagamento {
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+}
+
+.checkout-pagamento h3 {
+    margin-top: 0;
+    margin-bottom: 0.2rem;
+}
+
+.checkout-pagamento > p {
+    margin: 0 0 1rem;
+    color: #4c4c4c;
+    font-size: 1rem;
+}
+
+.pagamento-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 56px;
+    padding: 0.7rem 1rem;
+    border: 2px solid #d0d9e4;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagamento-option.selected {
+    border-color: #1d7fe5;
+    background: rgba(29, 127, 229, 0.04);
+}
+
+.pagamento-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 700;
+    color: #141414;
+}
+
+.radio-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #1c78ea;
+    background: transparent;
+    box-shadow: none;
+    display: inline-block;
+}
+
+.pagamento-option.selected .radio-dot {
+    background: #1c78ea;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+.pagamento-bandeiras {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.bandeira,
+.mais-cartoes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 26px;
+    padding: 0 0.45rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.bandeira.visa {
+    background: #1a56d8;
+}
+
+.bandeira.master {
+    background: #d62d2d;
+}
+
+.bandeira.elo {
+    background: #0b0d10;
+    color: #f2f2f2;
+}
+
+.mais-cartoes {
+    background: #d9d9d9;
+    color: #111;
+    font-size: 1.2rem;
+    min-width: 28px;
+    height: 28px;
+}
+
+.pagamento-field {
+    margin-bottom: 1rem;
+}
+
+.pagamento-checkbox {
+    margin: 0.75rem 0 1rem;
+}
+
+.metodo-pagamento {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+}
+
+.metodo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    min-height: 56px;
+    border: 1px solid #d7d7d7;
+    border-radius: 12px;
+    background: #f4f4f4;
+    padding: 0.75rem 1rem;
+    color: #1a1a1a;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.metodo-item.selected {
+    border-color: #1c78ea;
+    background: #edf5ff;
+}
+
+.metodo-item input {
+    accent-color: #1c78ea;
+    width: 18px;
+    height: 18px;
+}
+
+.metodo-text {
+    flex: 1;
+    font-weight: 600;
+}
+
+.metodo-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 28px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.metodo-logo.boleto {
+    background: #eceef1;
+    border: 1px solid #d2d6dc;
+    color: #2d2d2d;
+}
+
+.metodo-logo.pix {
+    background: #dff9f1;
+    color: #0a8f6d;
+    border: 1px solid #c8efe2;
+}
+
+.btn-pagar {
+    width: 100%;
+    min-height: 58px;
+    margin-top: 1.2rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f1d571, #f0d16d);
+    color: #111;
+    font-weight: 800;
+    font-size: 1.08rem;
+    cursor: pointer;
+    box-shadow: 0 12px 18px rgba(240, 209, 109, 0.22);
+}
+
+@media (max-width: 900px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-panel {
+        padding-top: 3rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .checkout-two-col,
+    .coupon-row,
+    .pagamento-option {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .checkout-overlay {
+        padding: 1rem;
+    }
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    gap: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.produto-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.produto-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(5, 133, 253, 0.45);
+}
+
+.produto-card img {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+    display: block;
+    background: #10151c;
+}
+
+.produto-info {
+    padding: 1rem 0.8rem 1.2rem;
+    text-align: left;
+}
+
+.produto-nome {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.produto-preco {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.produto-detalhe ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1rem;
+}
+
+.produto-detalhe li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--text);
+    font-size: 0.98rem;
+}
+
+.produto-detalhe li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+@media (max-width: 980px) {
+    .produtos-grid {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .produtos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .produto-card img {
+        height: 260px;
+    }
+}</style>
+    <script>
+        const categorias = {
+            acessorios: {
+                titulo: 'Acessórios',
+                imagem: 'img/avulso.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Peças e complementos especiais para completar seu projeto com estilo e funcionalidade.',
+                itens: [
+                    'Suportes personalizados',
+                    'Clipes e fixadores',
+                    'Peças decorativas e utilitárias',
+                ],
+                produtos: [
+                    { nome: 'Produto 1', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Produto 2', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Produto 3', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Produto 4', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Produto 5', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Produto 6', preco: 'R$0,00', imagem: 'img/avulso.jpeg' }
+                ]
+            },
+            unitario: {
+                titulo: 'Unitário',
+                imagem: 'img/avulso.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Peça avulsa impressa em 3D, pensada para aplicações únicas e personalizadas em automotivo e acabamento.',
+                itens: [
+                    'Modelagem específica para uso individual',
+                    'Acabamento premium e resistente',
+                    'Ideal para customização e reposição',
+                ],
+                produtos: [
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' },
+                    { nome: 'Peça Unitária', preco: 'R$0,00', imagem: 'img/avulso.jpeg' }
+                ]
+            },
+            'kit-1': {
+                titulo: 'Kit 1',
+                imagem: 'img/kit.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Kit completo com conjunto de peças para montagem e acabamento em um sistema funcional.',
+                itens: [
+                    'Conjunto de peças coordenadas',
+                    'Montagem prática e rápida',
+                    'Estrutura moderna e funcional',
+                ],
+                produtos: [
+                    { nome: 'Kit 1', preco: 'R$10,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 1', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 1', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 1', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 1', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 1', preco: 'R$0,00', imagem: 'img/kit.jpeg' }
+                ]
+            },
+            'kit-2': {
+                titulo: 'Kit 2',
+                imagem: 'img/kit.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Kit com peças complementares para acabamento mais refinado e visual mais premium.',
+                itens: [
+                    'Versatilidade para personalização',
+                    'Design com foco em performance',
+                    'Montagem com alto nível de acabamento',
+                ],
+                produtos: [
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 2', preco: 'R$0,00', imagem: 'img/kit.jpeg' }
+                ]
+            },
+            'kit-3': {
+                titulo: 'Kit 3',
+                imagem: 'img/kit.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Kit de peças com proposta mais robusta para uso contínuo e adaptação em projetos maiores.',
+                itens: [
+                    'Boa resistência e acabamento',
+                    'Ideal para peças de uso recorrente',
+                    'Soluções balanceadas entre estética e funcionalidade',
+                ],
+                produtos: [
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 3', preco: 'R$0,00', imagem: 'img/kit.jpeg' }
+                ]
+            },
+            'kit-4': {
+                titulo: 'Kit 4',
+                imagem: 'img/kit.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Kit premium com combinação de peças e montagem para projeto mais completo e personalizado.',
+                itens: [
+                    'Foco em design e customização',
+                    'Completo para presença visual marcante',
+                    'Solução refinada para projetos especiais',
+                ],
+                produtos: [
+                    { nome: 'Kit 4', preco: 'R$,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit 4', preco: 'R$0,00', imagem: 'img/kit.jpeg' }
+                ]
+            },
+            modelos: {
+                titulo: 'Modelos',
+                imagem: 'img/modelos.png',
+                preco: 'R$0,00',
+                descricao: 'Modelos 3D prontos para impressão, com design moderno e acabamento perfeito.',
+                itens: [
+                    'Peças para teste rápido',
+                    'Protótipos estéticos',
+                    'Estruturas e suportes ajustáveis',
+                ],
+                produtos: [
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' },
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' },
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' },
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' },
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' },
+                    { nome: 'Modelo', preco: 'R$0,00', imagem: 'img/modelos.png' }
+                ]
+            },
+            kits: {
+                titulo: 'Kits',
+                imagem: 'img/kit.jpeg',
+                preco: 'R$0,00',
+                descricao: 'Conjuntos de peças e acessórios ideais para projetos completos em 3D.',
+                itens: [
+                    'Conjuntos combinados',
+                    'Acessórios para montagem',
+                    'Soluções completas por categoria',
+                ],
+                produtos: [
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' },
+                    { nome: 'Kit Completo', preco: 'R$0,00', imagem: 'img/kit.jpeg' }
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const tipo = params.get('tipo') || 'acessorios';
+        const dados = categorias[tipo] || categorias.acessorios;
+
+        const selectedTitle = document.getElementById('selected-title');
+        const selectedPrice = document.getElementById('selected-price');
+        const selectedImage = document.getElementById('selected-image');
+        const qtyValue = document.getElementById('qty-value');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const checkoutTitle = document.getElementById('checkout-title');
+        const checkoutPrice = document.getElementById('checkout-price');
+        const checkoutImage = document.getElementById('checkout-image');
+        const checkoutSubtotal = document.getElementById('checkout-subtotal');
+        const checkoutTotal = document.getElementById('checkout-total');
+        const parcelamentoSelect = document.getElementById('checkout-parcelamento');
+        const creditCardOption = document.querySelector('.pagamento-option');
+        const paymentOptions = document.querySelectorAll('.metodo-item');
+
+        let selectedQty = 1;
+        let currentSelectedItem = null;
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
+
+        function parseCurrency(value) {
+            if (!value) return 0;
+            const normalized = String(value).replace(/[R$\.\s]/g, '').replace(',', '.');
+            return Number(normalized) || 0;
+        }
+
+        function atualizarParcelamento() {
+            if (!parcelamentoSelect) return;
+
+            const baseValue = parseCurrency(currentSelectedItem?.preco || 'R$0,00');
+            const total = baseValue * Number(qtyValue.textContent || 1);
+
+            const opcoes = [
+                `À vista (${formatCurrency(total)})`,
+                ...Array.from({ length: 11 }, (_, index) => {
+                    const parcelas = index + 2;
+                    const valorParcela = total / parcelas;
+                    return `${parcelas}x de ${formatCurrency(valorParcela)} / mês`;
+                })
+            ];
+
+            parcelamentoSelect.innerHTML = opcoes.map((label) => `<option>${label}</option>`).join('');
+            parcelamentoSelect.value = opcoes[0];
+        }
+
+        function atualizarDetalheProduto(item) {
+            currentSelectedItem = item;
+            selectedTitle.textContent = item.nome;
+            selectedPrice.textContent = item.preco;
+            selectedImage.src = item.imagem;
+            selectedImage.alt = item.nome;
+            qtyValue.textContent = selectedQty;
+
+            if (checkoutTitle && checkoutPrice && checkoutImage) {
+                checkoutTitle.textContent = item.nome;
+                checkoutPrice.textContent = item.preco;
+                checkoutImage.src = item.imagem;
+                checkoutImage.alt = item.nome;
+            }
+
+            const total = parseCurrency(item.preco) * Number(selectedQty || 1);
+            const totalFormatado = formatCurrency(total);
+            if (checkoutSubtotal) checkoutSubtotal.textContent = totalFormatado;
+            if (checkoutTotal) checkoutTotal.textContent = totalFormatado;
+            atualizarParcelamento();
+        }
+
+        document.getElementById('categoria-titulo').textContent = dados.titulo;
+        document.getElementById('categoria-preco').textContent = dados.preco;
+        document.getElementById('categoria-descricao').textContent = dados.descricao;
+
+        const grid = document.getElementById('produtos-grid');
+        grid.innerHTML = '';
+
+        (dados.produtos || []).forEach((item, index) => {
+            const card = document.createElement('article');
+            card.className = 'produto-card';
+            card.setAttribute('tabindex', '0');
+            card.innerHTML = `
+                <img src="${item.imagem}" alt="${item.nome}">
+                <div class="produto-info">
+                    <span class="produto-nome">${item.nome}</span>
+                    <span class="produto-preco">${item.preco}</span>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                selectedQty = 1;
+                atualizarDetalheProduto(item);
+                document.querySelectorAll('.produto-card').forEach(el => el.style.borderColor = 'rgba(255,255,255,0.08)');
+                card.style.borderColor = 'rgba(5, 133, 253, 0.8)';
+            });
+
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    card.click();
+                }
+            });
+
+            grid.appendChild(card);
+
+            if (index === 0) {
+                selectedQty = 1;
+                atualizarDetalheProduto(item);
+                card.style.borderColor = 'rgba(5, 133, 253, 0.8)';
+            }
+        });
+
+        function setPaymentMethod(method) {
+            const isCredit = method === 'credit';
+            creditCardOption.classList.toggle('selected', isCredit);
+            creditCardOption.setAttribute('aria-pressed', String(isCredit));
+
+            paymentOptions.forEach((item) => {
+                const selected = item.dataset.method === method;
+                item.classList.toggle('selected', selected);
+                const input = item.querySelector('input');
+                if (input) input.checked = selected;
+            });
+        }
+
+        creditCardOption.addEventListener('click', () => setPaymentMethod('credit'));
+        creditCardOption.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                setPaymentMethod('credit');
+            }
+        });
+
+        paymentOptions.forEach((option) => {
+            option.addEventListener('click', () => setPaymentMethod(option.dataset.method));
+        });
+
+        document.querySelectorAll('.qty-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.dataset.action;
+                const current = Number(qtyValue.textContent || '1');
+                const next = action === 'plus' ? current + 1 : Math.max(1, current - 1);
+                qtyValue.textContent = next;
+
+                if (currentSelectedItem && currentSelectedItem.preco) {
+                    const valor = parseCurrency(currentSelectedItem.preco);
+                    const total = valor * next;
+                    const formatado = formatCurrency(total);
+                    checkoutSubtotal.textContent = formatado;
+                    checkoutTotal.textContent = formatado;
+                    atualizarParcelamento();
+                }
+            });
+        });
+
+        function abrirCheckout() {
+            checkoutModal.classList.remove('hidden');
+            checkoutModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+        }
+
+        document.querySelector('.btn-principal').addEventListener('click', abrirCheckout);
+
+        document.querySelector('.checkout-close').addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+            checkoutModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+        });
+
+        checkoutModal.addEventListener('click', (event) => {
+            if (event.target === checkoutModal) {
+                checkoutModal.classList.add('hidden');
+                checkoutModal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+            }
+        });
+
+        document.body.classList.remove('modal-open');
+
+        const lista = document.getElementById('categoria-lista');
+        lista.innerHTML = '';
+        dados.itens.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            lista.appendChild(li);
+        });
+    </script>
+</body>
+</html>
